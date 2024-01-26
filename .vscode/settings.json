@@ -1,0 +1,17 @@
+{
+    "objectscript.conn": {
+        "active": true,
+        "server": "iristest",
+        "ns": "USER"
+    },
+    "intersystems.servers": {
+        "iristest":{
+            "webServer": {
+                "host": "localhost",
+                "scheme": "http",
+                "pathPrefix": "/iris"
+            },
+            "username": "SuperUser"
+        }
+    }
+}
