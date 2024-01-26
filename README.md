@@ -587,10 +587,6 @@ $
 
 管理ポータルのアドレス：　http://localhost:52773/csp/sys/UtilHome.csp
 
-IRISのランチャーからアクセスする場合は、インスタンス名（例ではiris）のパスが付いたアドレスで管理ポータルが開きます。
-
-例）http://localhost:52773/iris/csp/sys/UtilHome.csp
-
 
 #### 3-3. 新規インストール時「No」を選択した場合
 
