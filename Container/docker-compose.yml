@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   iris:
-    #image: containers.intersystems.com/intersystems/iris:2023.3
+    #image: containers.intersystems.com/intersystems/iris:2024.1
     build:
       context: ./iris
       dockerfile: Dockerfile
@@ -14,10 +14,9 @@ services:
       - TZ=JST-9
     volumes:
       - ./iris:/ISC
-    command: --key /ISC/iris.key
 
   webgw:
-    image: containers.intersystems.com/intersystems/webgateway:2023.3
+    image: containers.intersystems.com/intersystems/webgateway:2024.1
     container_name: webgw1
     init: true
     ports:
