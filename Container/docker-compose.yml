@@ -27,7 +27,6 @@ services:
       - ./webgateway:/webgateway-shared
 
     # SSL有効化する場合は command 行のコメントを外します。
-    # 　コメントのままで起動した場合、SSL用の設定が記述されていてもSSLは有効化されません。
     #   SSL有効化する場合は、webgateway ディレクトリ内にSSL用の証明書と秘密鍵を配置してください。
     #   例）./webgateway/server.crt, ./webgateway/server.key
     #command: ["--ssl"]
