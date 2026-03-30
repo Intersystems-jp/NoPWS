@@ -1,29 +1,34 @@
-version: '3.7'
-
 services:
-  iris:
-    #image: containers.intersystems.com/intersystems/iris:2024.1
+  nopwsiris: # コンテナ間通信時のホスト名
     build:
       context: ./iris
       dockerfile: Dockerfile
-    init: true
-    container_name: nopwsiris
-    ports:
-       - "8082:1972"
-    environment:
-      - TZ=JST-9
-    volumes:
-      - ./iris:/ISC
+    ports: ["8082:1972"] # コンテナ1972をホストの9872にマッピング
 
-  webgw:
-    image: containers.intersystems.com/intersystems/webgateway:2024.1
-    container_name: webgw1
+    volumes: 
+      - ./iris:/ISC
+      #↓製品版利用時の設定：./iris/iris.keyの名称で正しいキーを配置してください
+      - ./iris/iris.key:/tmp/iris.key
+    command: ["--key","/tmp/iris.key"]
+    environment: 
+      - TZ=JST-9
+
+  iris-webgateway:
+    image: containers.intersystems.com/intersystems/webgateway:2026.1
     init: true
     ports:
-      - 8080:80
-      - 8443:443
+      - 9981:80 # コンテナ80ポートをホストの9981にマッピング
+      #- 9443:443 # コンテナ443ポートをホストの9443にマッピング
     environment:
-    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
-    - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
+      # Web Gatewayの設定ファイルパス
+      - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
+      - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
     volumes:
-    - ./webgateway:/webgateway-shared
+      - ./webgateway:/webgateway-shared
+
+    # SSL有効化する場合は command 行のコメントを外します。
+    # 　コメントのままで起動した場合、SSL用の設定が記述されていてもSSLは有効化されません。
+    #   SSL有効化する場合は、webgateway ディレクトリ内にSSL用の証明書と秘密鍵を配置してください。
+    #   例）./webgateway/server.crt, ./webgateway/server.key
+    #command: ["--ssl"]
+
